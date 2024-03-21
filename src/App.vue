@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/UserLogin">Prijava</router-link>
-    <router-link to="/Signup">Siginup</router-link>
+    <router-link to="/SignUpForm">Registracija</router-link>
   </nav>
   <router-view/>
 </template>
