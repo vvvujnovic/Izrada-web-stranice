@@ -2,8 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/UserLogin">Prijava</router-link>
-    <router-link to="/Signup">Siginup</router-link>
-  </nav>
+     </nav>
   <router-view/>
 </template>
 
