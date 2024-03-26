@@ -14,6 +14,7 @@
               <label for="password">Lozinka</label>
               <input type="password" v-model="password" class="form-control" id="password" placeholder="Lozinka" required>
             </div>
+            <div class="login" style="margin-bottom: 20px;"></div>
             <button type="submit" class="btn btn-primary">Prijava</button>
           </form>
         </div>

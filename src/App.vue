@@ -18,15 +18,11 @@
         </ul>
       </div>
     </nav>
-  </div> 
-
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/UserLogin">Prijava</router-link>
-    <router-link to="/SignUpForm">Registracija</router-link>
-  </nav>
-  <router-view/>
+    
+    <router-view/>
+  </div>
 </template>
+
 
 
 

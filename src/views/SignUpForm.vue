@@ -23,12 +23,14 @@
               <label for="confirmPassword">Potvrdi lozinku</label>
               <input type="password" class="form-control" id="confirmPassword" placeholder="Potvrdi lozinku" />
             </div>
+            <div class="login" style="margin-bottom: 20px;"></div>
             <button type="submit" class="btn btn-primary">Registracija</button>
           </form>
         </div>
         <div class="col-sm"></div>
       </div>
 </template>
+
 
 
 
