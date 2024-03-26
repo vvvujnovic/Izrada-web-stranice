@@ -1,7 +1,7 @@
 <template>
   <div class="UserLogin">
     <h1>Registracija</h1>
-    <div class="container">
+  </div>
       <div class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
@@ -28,9 +28,7 @@
         </div>
         <div class="col-sm"></div>
       </div>
-    </div>
-    <div class="text-center mt-3">
-      <p>Već imate račun ? <a href="#">Prijavite se!</a></p>
-    </div>
-  </div>
 </template>
+
+
+
