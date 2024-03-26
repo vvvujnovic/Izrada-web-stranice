@@ -24,13 +24,33 @@
               <input type="password" class="form-control" id="confirmPassword" placeholder="Potvrdi lozinku" />
             </div>
             <div class="login" style="margin-bottom: 20px;"></div>
-            <button type="submit" class="btn btn-primary">Registracija</button>
+            <router-link class="btn custom-button" to="/SignUpForm">Registracija</router-link>
           </form>
         </div>
         <div class="col-sm"></div>
       </div>
 </template>
 
+<style lang="scss">
 
+  .custom-button {
+  background-color: #686461;
+  color: rgb(12, 12, 12); 
+
+}
+.cta-button:hover {
+  background-color: #686461;
+}
+.cta-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #686461;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+</style>
 
 
