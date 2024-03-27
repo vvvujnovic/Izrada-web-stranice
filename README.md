@@ -1,5 +1,5 @@
 # novi_projekt
-
+Izrada projekta iz koegija Programsko inžinjerstvo
 ## Project setup
 ```
 yarn install
