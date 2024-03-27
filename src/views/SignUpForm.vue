@@ -40,15 +40,7 @@
 }
 .cta-button:hover {
   background-color: #686461;
-}
-.cta-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #686461;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
 }
 
 </style>
