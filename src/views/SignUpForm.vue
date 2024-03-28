@@ -13,7 +13,6 @@
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" />
-              <small id="emailHelp" class="form-text text-muted">Vaša e-mail adresa je zaštićena.</small>
             </div>
             <div class="form-group">
               <label for="password">Lozinka</label>
@@ -25,6 +24,10 @@
             </div>
             <div class="login" style="margin-bottom: 20px;"></div>
             <router-link class="btn custom-button" to="/SignUpForm">Registracija</router-link>
+            <p>
+              Već imate račun ? 
+              <router-link class="texttom-button" to="/UserLogin">Prijavite se</router-link>
+            </p>
           </form>
         </div>
         <div class="col-sm"></div>
@@ -43,6 +46,11 @@
 
 }
 
+.texttom-button {
+  color: rgb(14, 12, 12);
+  display: block; 
+  margin-top: 20px; 
+}
 </style>
 
 

@@ -12,9 +12,8 @@
       </div>
 
       <div>
-              <button @click="$router.push('/contact')" class="cta-button">ZAPOČMITE S PRETRAGOM NAŠIH 
-                USLUGA</button>
-      </div>
+    <button @click="$router.push('/SignUpForm')" class="cta-button">ZAPOČMITE </button>
+  </div>
 </template>
 
 <script>

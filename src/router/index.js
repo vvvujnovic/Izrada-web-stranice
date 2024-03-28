@@ -24,8 +24,8 @@ const routes = [
   component: () => import(/* webpackChunkName: "about" */ '../views/SignUpForm.vue')
 },
 
-  
-]
+];
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

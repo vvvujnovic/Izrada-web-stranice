@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
               <label for="password">Lozinka</label>
-              <input type="password" v-model="lozinka" class="form-control" id="password" placeholder="Lozinka" required>
+              <input type="password" v-model="Lozinka" class="form-control" id="password" placeholder="Lozinka" required>
             </div>
             <div class="login" style="margin-bottom: 20px;"></div>
             <router-link class="btn custom-button" to="/UserLogin">Prijava</router-link>
