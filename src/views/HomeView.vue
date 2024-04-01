@@ -17,9 +17,12 @@
 </template>
 
 <script>
+
 export default {
-  name: "HomePage",
+  name: "HomeView",
 };
+
+
 </script>
 
 <style scoped>

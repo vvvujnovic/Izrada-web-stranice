@@ -16,13 +16,37 @@
             <router-link class="nav-link" to="/SignUpForm">Registracija</router-link>
           </li>
         </ul>
+        <form class="d-flex" role="search">
+            <input v-model="store.searchTerm"
+                   class="form-control me-2"
+                   type="search"
+                   placeholder="Pretraga"
+                   aria-label="Search">
+          </form>
       </div>
     </nav>
-    
+    {{ store.searchTerm }}
+
+    <div class="container">
     <router-view/>
+  </div>
   </div>
 </template>
 
+
+<script>
+import store from "@/store";
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      store,
+      loggedIn: false,
+    };
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
