@@ -1,6 +1,4 @@
 export default {
-  authenticated: false,
-  userEmail: '',
-  products: [],
-  Cart: [],
-}
+  searchTerm: '',
+  currentUser: null,
+};
