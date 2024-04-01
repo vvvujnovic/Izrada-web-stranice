@@ -1,6 +1,14 @@
 # novi_projekt
 Izrada projekta iz koegija Programsko inžinjerstvo
-## Project setup
+Izrada aplikacije za uslušni srevis za čišćenje pod nazivom TRIO RIO OBRT
+Aplikaciju izradila : Vedrana Vujnović
+
+Fakultet informatike u Puli : https://fipu.unipu.hr/
+
+Kolegij: Programsko inženjerstvo https://fipu.unipu.hr/fipu/nikola.tankovic)
+
+- Mentor: doc. dr. sc. Nikola Tanković https://fipu.unipu.hr/fipu/nikola.tankovic)
+## Project setup]
 ```
 yarn install
 ```
