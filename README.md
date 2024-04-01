@@ -1,6 +1,7 @@
 # novi_projekt
 Izrada projekta iz koegija Programsko inžinjerstvo
 Izrada aplikacije za uslušni srevis za čišćenje pod nazivom TRIO RIO OBRT
+Aplikaciju izradila : Vedrana Vujnović
 
 Fakultet informatike u Puli : https://fipu.unipu.hr/
 
