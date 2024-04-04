@@ -5,40 +5,57 @@
       <div class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
-          <form>
+          <form @submit.prevent="UserLogin">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" v-model="email" class="form-control" id="email" placeholder="Email" required>
+              <input v-model="email" class="form-control" id="email" placeholder="Email" required>
             </div>
             <div class="form-group">
               <label for="password">Lozinka</label>
-              <input type="password" v-model="Lozinka" class="form-control" id="password" placeholder="Lozinka" required>
+              <input type="password" v-model="password" class="form-control" id="password" placeholder="Lozinka" required>
             </div>
-            <div class="login" style="margin-bottom: 20px;"></div>
-            <router-link class="btn custom-button" to="/UserLogin">Prijava</router-link>
+            <div class="UserLogin" style="margin-bottom: 20px;"></div>
+            <button type="button" class="btn custom-button">Prijava</button>
           </form>
         </div>
         <div class="col-sm"></div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+
 export default {
+  name: 'UserLogin',
   data() {
     return {
       email: '',
-      Lozinka: ''
+      password: ''
     };
   },
   methods: {
-    login() {
+    async UserLogin() {
+  try {
+    const auth = getAuth();
+    const { email, password } = this;
+    
+    await signInWithEmailAndPassword(auth, email, password);
+    // Uspješna registracija usmjeri korisnika na Home page stranicu
+    const router = useRouter();
+    router.replace({ name: 'home' });
+  } catch (error) {
+    console.error('UserLogin error:', error.message);
+    // Greška u prijavu
+      }
     }
   }
 };
-</script>
 
+</script>
 
 <style lang="scss">
 .custom-button {

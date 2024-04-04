@@ -9,11 +9,18 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/UserLogin">Prijava</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/SignUpForm">Registracija</router-link>
+            <li v-if="!store.currentUser" class="nav-item">
+              <router-link to="/UserLogin" class="nav-link">Prijava</router-link>
+            </li>
+            <li v-if="!store.currentUser" class="nav-item">
+              <router-link to="/SignUpForm" class="nav-link">Registracija</router-link>
+            </li>
+            <li v-if="!store.currentUser" class="nav-item">
+              <router-link to="/login" class="nav-link">Odjava</router-link>
+              </li>
+
+            <li v-if="store.currentUser" class="nav-item">
+            <button @click.prevent="logout()" class="btn btn-link nav-link">Odjava</button>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -33,9 +40,10 @@
   </div>
 </template>
 
-
 <script>
 import store from "@/store";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import router from "@/router";
 
 export default {
   name: 'app',
@@ -44,8 +52,51 @@ export default {
       store,
       loggedIn: false,
     };
-  }
-}
+  },
+  mounted() {
+    const self = this;
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+      console.log('Provjera stanja logina.');
+      
+      if (user) {
+        console.log('***', user.email);
+        store.currentUser = user.email;
+        self.loggedIn = true;
+      } else {
+        console.log('No user');
+        store.currentUser = null;
+        self.loggedIn = false;
+      }
+
+      const currentRoute = router.currentRoute;
+
+      if (currentRoute.meta && currentRoute.meta.needsUser !== undefined) { // ako ruta kaže da treba korisnika vodi me na login
+        if (self.loggedIn && !currentRoute.meta.needsUser) {
+          router.push({ name: 'HomeView' });  // ako se logiram odvedi me na HomeView ako sam logiran 
+        } else if (!self.loggedIn && currentRoute.meta.needsUser) {
+          router.push({ name: 'login' });
+        }
+      }
+    });
+  },
+  methods: {
+    logout() {
+      const auth = getAuth();
+
+      signOut(auth)
+        .then(() => {
+          console.log('Korisnik je uspješno odjavljen.');
+          this.loggedIn = false;
+          router.push({ name: 'login' });
+        })
+        .catch((error) => {
+          console.error('Došlo je do pogreške prilikom odjave:', error);
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
