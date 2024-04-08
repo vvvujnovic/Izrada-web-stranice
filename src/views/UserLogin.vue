@@ -46,7 +46,7 @@ export default {
     await signInWithEmailAndPassword(auth, email, password);
     // Uspješna registracija usmjeri korisnika na Home page stranicu
     const router = useRouter();
-    router.replace({ name: 'home' });
+    router.replace({ name: 'HomeView' });
   } catch (error) {
     console.error('UserLogin error:', error.message);
     // Greška u prijavu
