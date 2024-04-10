@@ -9,36 +9,36 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-            <li v-if="!store.currentUser" class="nav-item">
-              <router-link to="/UserLogin" class="nav-link">Prijava</router-link>
-            </li>
-            <li v-if="!store.currentUser" class="nav-item">
-              <router-link to="/SignUpForm" class="nav-link">Registracija</router-link>
-            </li>
-            <li v-if="!store.currentUser" class="nav-item">
-              <router-link to="/login" class="nav-link">Odjava</router-link>
-              </li>
-
-            <li v-if="store.currentUser" class="nav-item">
+          <li v-if="!store.currentUser" class="nav-item">
+            <router-link to="/UserLogin" class="nav-link">Prijava</router-link>
+          </li>
+          <li v-if="!store.currentUser" class="nav-item">
+            <router-link to="/SignUpForm" class="nav-link">Registracija</router-link>
+          </li>
+          <li v-if="!store.currentUser" class="nav-item">
+            <router-link to="/KategorijaUsluga" class="nav-link">Kategorija usluga</router-link>
+          </li>
+          <li v-if="store.currentUser" class="nav-item">
             <button @click.prevent="logout()" class="btn btn-link nav-link">Odjava</button>
           </li>
         </ul>
         <form class="d-flex" role="search">
-            <input v-model="store.searchTerm"
-                   class="form-control me-2"
-                   type="search"
-                   placeholder="Pretraga"
-                   aria-label="Search">
-          </form>
+          <input v-model="store.searchTerm"
+                 class="form-control me-2"
+                 type="search"
+                 placeholder="Pretraga"
+                 aria-label="Search">
+        </form>
       </div>
     </nav>
     {{ store.searchTerm }}
 
     <div class="container">
-    <router-view/>
-  </div>
+      <router-view/>
+    </div>
   </div>
 </template>
+
 
 <script>
 import store from "@/store";
@@ -96,6 +96,7 @@ export default {
         });
     },
   },
+
 };
 </script>
 

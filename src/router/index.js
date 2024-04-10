@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignUpForm from '@/views/SignUpForm.vue';
+import KategorijaUsluga from '@/views/KategorijaUsluga.vue'; // Import novu komponentu
 import store from '@/store';
 
 const routes = [
@@ -9,43 +10,48 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-
-      needsAuth: true,  // zanči ako sam na HomeView ruti treba mi ulogirani korisnik
-
+      needsUser: false // Zahtijeva prijavljenog korisnika
     }
   },
   {
     path: '/userLogin',
     name: 'UserLogin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/UserLogin.vue')
+    component: () => import('../views/UserLogin.vue')
   },
-{
-  path: '/SignUpForm',
-  name: 'SignUpForm',
-  component: SignUpForm,
-},
-
+  {
+    path: '/SignUpForm',
+    name: 'SignUpForm',
+    component: SignUpForm
+  },
+  {
+    path: '/KategorijaUsluga', // Nova ruta za KategorijaUsluga
+    name: 'KategorijaUsluga',
+    component: KategorijaUsluga,
+    meta: {
+      needsUser: false // Ne zahtijeva prijavljenog korisnika
+    }
+  }
 ];
-
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
-router.beforeEach((to, from, next) => {  // 3. paremetar next znači služomo  se sa promjenom rute 
+});
+
+router.beforeEach((to, from, next) => {
   console.log("Stara ruta", from.name, " -> nova ruta", to.name, "korisnik", store.currentUser);
 
-  const noUser = store.currentUser == null;  // nova varijabla  bit će true ako nemamo prijavljenog novog korisnika
+  const noUser = store.currentUser == null;
 
   if (to.meta && to.meta.needsUser && noUser) {
-    // ako ruta zahtijeva autentikaciju i nema korisnika ulogiranog neće mu dozvoliti promejenu nego me odvedi na login
-    next('/login');  
+    // Ako korisnik nije prijavljen i pokušava pristupiti ruti koja zahtijeva prijavu, preusmjerite ga na stranicu za prijavu
+    next('/userLogin');  
   } else {
-    // ako ruta ne zahtijeva aut. tj.korisnik je ulogiran
+    // Inače, dopustite pristup ruti
     next();
   }
 });
-export default router
+
+export default router;
+
+  
