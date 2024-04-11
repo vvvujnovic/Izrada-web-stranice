@@ -1,3 +1,4 @@
+User
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -15,22 +16,16 @@
           <li v-if="!store.currentUser" class="nav-item">
             <router-link to="/SignUpForm" class="nav-link">Registracija</router-link>
           </li>
-          <li v-if="!store.currentUser" class="nav-item">
+          <li class="nav-item"> <!-- Promijenjeno: ova stavka se uvijek prikazuje -->
             <router-link to="/KategorijaUsluga" class="nav-link">Kategorija usluga</router-link>
           </li>
-          <li v-if="store.currentUser" class="nav-item">
-            <button @click.prevent="logout()" class="btn btn-link nav-link">Odjava</button>
+          <li class="nav-item"> <!-- Poveznica za odjavu uvijek prikazana -->
+            <a href="#" @click.prevent="logout()" class="nav-link">Odjava</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input v-model="store.searchTerm"
-                 class="form-control me-2"
-                 type="search"
-                 placeholder="Pretraga"
-                 aria-label="Search">
-        </form>
       </div>
     </nav>
+  
     {{ store.searchTerm }}
 
     <div class="container">
@@ -38,6 +33,8 @@
     </div>
   </div>
 </template>
+
+
 
 
 <script>
@@ -49,7 +46,7 @@ export default {
   name: 'app',
   data() {
     return {
-      store,
+      store: store,
       loggedIn: false,
     };
   },
@@ -72,11 +69,11 @@ export default {
 
       const currentRoute = router.currentRoute;
 
-      if (currentRoute.meta && currentRoute.meta.needsUser !== undefined) { // ako ruta kaže da treba korisnika vodi me na login
+      if (currentRoute.meta && currentRoute.meta.needsUser !== undefined) {
         if (self.loggedIn && !currentRoute.meta.needsUser) {
-          router.push({ name: 'HomeView' });  // ako se logiram odvedi me na HomeView ako sam logiran 
+          router.push({ name: 'HomeView' });
         } else if (!self.loggedIn && currentRoute.meta.needsUser) {
-          router.push({ name: 'login' });
+          router.push({ name: 'UserLogin' });
         }
       }
     });
@@ -89,16 +86,17 @@ export default {
         .then(() => {
           console.log('Korisnik je uspješno odjavljen.');
           this.loggedIn = false;
-          router.push({ name: 'login' });
+          store.currentUser = null;
+          router.push({ name: 'UserLogin' });
         })
         .catch((error) => {
           console.error('Došlo je do pogreške prilikom odjave:', error);
         });
     },
   },
-
 };
 </script>
+
 
 <style lang="scss">
 #app {

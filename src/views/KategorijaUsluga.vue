@@ -1,3 +1,4 @@
+
 <template>
   <div class="KategorijaUsluga">
     <div class="container">
@@ -36,21 +37,12 @@
               ></textarea>
             </div>
             <div class="form-group">
-              <label for="datum">Datum</label>
+              <label for="datum"><h3>Datum usluge</h3></label>
               <input
                 type="date"
                 v-model="datum"
                 class="form-control"
                 id="datum"
-              />
-            </div>
-            <div class="form-group">
-              <label for="vrijeme">Vrijeme</label>
-              <input
-                type="time"
-                v-model="vrijeme"
-                class="form-control"
-                id="vrijeme"
               />
             </div>
             <button type="submit" class="btn btn-primary">
@@ -63,9 +55,10 @@
   </div>
 </template>
 
+
 <script>
-import { db, auth } from '@/firebase';
-import { collection, getDocs } from "firebase/firestore";
+import { db, auth } from '@/firebase'; // Uvoz db iz firebase.js
+import { collection, addDoc, getDocs } from "firebase/firestore"; // Promjena importa za collection i addDoc
 
 export default {
   data() {
@@ -83,6 +76,7 @@ export default {
   methods: {
     async dohvatiKategorijaUsluga() {
       try {
+        // Ovdje koristimo collection umjesto db.collection
         const querySnapshot = await getDocs(collection(db, "KategorijaUsluga"));
         this.KategorijaUsluga = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       } catch (error) {
@@ -97,7 +91,8 @@ export default {
           return;
         }
 
-        await db.collection('zahtjevi').add({
+        // Ovdje koristimo addDoc umjesto db.collection('zahtjevi').add
+        await addDoc(collection(db, 'zahtjevi'), { 
           korisnikEmail: currentUser.email,
           kategorijaUsluga: this.odabranaKategorijaUsluga,
           opis: this.opisZahtjeva,
@@ -112,6 +107,40 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.custom-button {
+  background-color: #72706e;
+  color: rgb(12, 12, 12);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  margin: 0 auto; /* Centriranje gumba */
+}
+
+.custom-button:hover {
+  background-color: #72706e;
+}
+
+.custom-button:active {
+  background-color: #3b3737; /* Boja prilikom klika */
+}
+
+.texttom-button {
+  color: rgb(14, 12, 12);
+}
+</style>
+
+
+
+
+
+
+
+
+
 
 
 

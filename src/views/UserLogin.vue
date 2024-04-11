@@ -15,7 +15,8 @@
               <input type="password" v-model="password" class="form-control" id="password" placeholder="Lozinka" required>
             </div>
             <div class="UserLogin" style="margin-bottom: 20px;"></div>
-            <button type="button" class="btn custom-button">Prijava</button>
+            <button type="submit" class="btn custom-button">Prijava</button>
+
           </form>
         </div>
         <div class="col-sm"></div>
@@ -27,7 +28,6 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserLogin',
@@ -38,36 +38,45 @@ export default {
     };
   },
   methods: {
-    async UserLogin() {
-  try {
+  UserLogin() {
     const auth = getAuth();
     const { email, password } = this;
-    
-    await signInWithEmailAndPassword(auth, email, password);
-    // Uspješna registracija usmjeri korisnika na Home page stranicu
-    const router = useRouter();
-    router.replace({ name: 'HomeView' });
-  } catch (error) {
-    console.error('UserLogin error:', error.message);
-    // Greška u prijavu
-      }
-    }
-  }
-};
 
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Provjeri je li prijava uspjela
+        if (userCredential && userCredential.user) {
+          // Prijava je uspješna
+          console.log('Korisnik prijavljen:', userCredential.user.uid);
+
+          // Uspješna prijava usmjeri korisnika na Home page stranicu
+          this.$router.replace({ name: 'HomeView' });
+        } else {
+          // Prijava nije uspjela
+          console.error('Greška pri prijavi: Neuspješna prijava');
+        }
+      })
+      .catch((error) => {
+        console.error('Greška pri prijavi:', error.message);
+        // Greška u prijavi
+      });
+  }
+}
+};
 </script>
 
 <style lang="scss">
 .custom-button {
-  background-color: #686461;
-  color: rgb(12, 12, 12);
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
+  background-color: #686461 !important;
+  color: rgb(12, 12, 12) !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  margin-top: 10px !important; /* Dodajte razmak iznad gumba */
 }
 
 .custom-button:hover {
-  background-color: #3b3737;
+  background-color: #3b3737 !important;
 }
 </style>
