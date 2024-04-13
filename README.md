@@ -9,6 +9,9 @@ Kolegij: Programsko inženjerstvo https://fipu.unipu.hr/fipu/nikola.tankovic)
 
 - Mentor: doc. dr. sc. Nikola Tanković https://fipu.unipu.hr/fipu/nikola.tankovic)
 ## Project setup]
+
+Javni lik na prototip izrađen u Figmi 
+https://www.figma.com/proto/6DPvVhAAul4X7JwAkAr9q4/projekt?page-id=0%3A1&type=design&node-id=73-1157&viewport=5463%2C8904%2C0.5&t=JBDRkQyZMYRIXUSM-1&scaling=scale-down&starting-point-node-id=73%3A1157&show-proto-sidebar=1&mode=design
 ```
 yarn install
 ```
