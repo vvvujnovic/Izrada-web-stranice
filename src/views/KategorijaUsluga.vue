@@ -44,10 +44,9 @@
                 class="form-control"
                 id="datum"
               />
+              <button type="submit" class="btn btn-primary custom-button">
+                        Potvrdi</button>                      
             </div>
-            <button type="submit" class="btn btn-primary">
-              Potvrdi
-            </button>
           </form>
         </div>
       </div>
@@ -109,29 +108,30 @@ export default {
 </script>
 
 <style lang="scss">
+
+.form-group button {
+  margin-top: 20px; /* Dodajte željenu margina na vrh gumba */
+}
 .custom-button {
-  background-color: #72706e;
+  background-color: #686461;
   color: rgb(12, 12, 12);
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  display: block;
+  display: block; /* Da bi se centrirao */
   margin: 0 auto; /* Centriranje gumba */
 }
 
 .custom-button:hover {
-  background-color: #72706e;
+  background-color: #3b3737;
 }
 
 .custom-button:active {
-  background-color: #3b3737; /* Boja prilikom klika */
-}
-
-.texttom-button {
-  color: rgb(14, 12, 12);
+  background-color: #686461; /* Boja prilikom klika */
 }
 </style>
+
 
 
 
