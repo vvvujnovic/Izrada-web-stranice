@@ -6,7 +6,7 @@
         <div class="col-sm-6">
           <form @submit.prevent="dodajZahtjev">
             <div class="form-group">
-              <label for="odaberiKategorijuUsluga"><h2>Odaberi kategoriju</h2></label>
+              <label for="odaberiKategorijuUsluga"><h3>Odaberi kategoriju</h3></label>
               <select
                 class="form-control"
                 id="odaberiKategorijuUsluga"
@@ -19,8 +19,7 @@
               </select>
             </div>
 
-            <!-- Dodani blok za prikaz slika -->
-            <div class="form-group">
+                       <div class="form-group">
           
               <img v-if="odabranaKategorijaUsluga === 'Auto'" src="../assets/auto.png" alt="Auto" />
               <img v-else-if="odabranaKategorijaUsluga === 'Kuca/Stan'" src="../assets/kuca.png" alt="Kuca/Stan" />
@@ -54,10 +53,10 @@
   </div>
 </template>
 
-
 <script>
-import { db, auth } from '@/firebase'; // Uvoz db iz firebase.js
-import { collection, addDoc, getDocs } from "firebase/firestore"; // Promjena importa za collection i addDoc
+import { db, auth } from '@/firebase'; 
+import { collection, addDoc, getDocs } from "firebase/firestore"; 
+import router from '@/router'; // Import router da korisnik aplikacije kad želi potvrditi uslugu ne može ako nije prijavljen već ga preusmjerva na stranicu za registraciju/prijavu
 
 export default {
   data() {
@@ -75,36 +74,44 @@ export default {
   methods: {
     async dohvatiKategorijaUsluga() {
       try {
-        // Ovdje koristimo collection umjesto db.collection
         const querySnapshot = await getDocs(collection(db, "KategorijaUsluga"));
         this.KategorijaUsluga = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       } catch (error) {
         console.error("Greška pri dohvatu KategorijaUsluga:", error);
       }
     },
-    async dodajZahtjev() {
-      try {
-        const currentUser = auth.currentUser;
-        if (!currentUser) {
-          console.error('Nema prijavljenog korisnika.');
-          return;
-        }
-
-        // Ovdje koristimo addDoc umjesto db.collection('zahtjevi').add
-        await addDoc(collection(db, 'zahtjevi'), { 
-          korisnikEmail: currentUser.email,
-          kategorijaUsluga: this.odabranaKategorijaUsluga,
-          opis: this.opisZahtjeva,
-          datum: this.datum,
-          vrijeme: this.vrijeme
-        });
-        console.log('Zahtjev uspješno dodan!');
-      } catch (error) {
-        console.error('Greška prilikom dodavanja zahtjeva:', error);
+    dodajZahtjev() {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        console.error('Niste prijavljeni, molimo prijavite se.');
+        alert('Niste prijavljeni, molimo prijavite se ili registrirajte');
+        router.push({ name: 'SignUpForm' }); // Preusmjeri na stranicu za prijavu
+        return;
       }
+
+      addDoc(collection(db, 'zahtjevi'), { 
+        korisnikEmail: currentUser.email,
+        KategorijaUsluga: this.odabranaKategorijaUsluga,
+        opis: this.opisZahtjeva,
+        datum: this.datum,
+        vrijeme: this.vrijeme
+      })
+      .then(() => {
+        this.odabranaKategorijaUsluga = '';
+        this.opisZahtjeva = '';
+        this.datum = '';
+        this.vrijeme = '';
+
+        console.log('Zahtjev uspješno dodan!');
+        alert('Zahtjev uspješno predan!');
+      })
+      .catch(error => {
+        console.error('Greška prilikom dodavanja zahtjeva:', error);
+      });
     }
   },
 };
+
 </script>
 
 <style lang="scss">

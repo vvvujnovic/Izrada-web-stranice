@@ -4,7 +4,6 @@ import SignUpForm from '@/views/SignUpForm.vue';
 import KategorijaUsluga from '@/views/KategorijaUsluga.vue';
 import store from '@/store';
 
-
 const routes = [
   {
     path: '/',
@@ -29,7 +28,7 @@ const routes = [
     name: 'KategorijaUsluga',
     component: KategorijaUsluga,
     meta: {
-      needsUser: false
+      needsUser: false  // Postavljamo da ova ruta zahtijeva prijavu korisnik može vidjeti usluge ali ne može posltai zahtjev bez prijave
     }
   }
 ];
@@ -43,14 +42,6 @@ router.beforeEach((to, from, next) => {
   console.log("Stara ruta", from.name, " -> nova ruta", to.name, "korisnik", store.currentUser);
 
   const noUser = store.currentUser == null;
-
-  // Provjeravamo da li je router definiran i da li postoji korektan put do njega
-  if (!router || !router.currentRoute) {
-    // Ako router nije definiran ili ako trenutna ruta nije definirana, koristimo alternativni pristup
-    console.error("Router is not defined or current route is not defined.");
-    next(); // Nastavljamo dalje bez preusmjeravanja
-    return;
-  }
 
   if (to.meta && to.meta.needsUser && noUser) {
     // Ako korisnik nije prijavljen i pokušava pristupiti ruti koja zahtijeva prijavu, preusmjerite ga na stranicu za prijavu
