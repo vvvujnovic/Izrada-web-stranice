@@ -44,21 +44,21 @@ export default {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Provjeri je li prijava uspjela
+        // Provjeri je li prijava uspjela  i prijavi me u sustav
         if (userCredential && userCredential.user) {
           // Prijava je uspješna
           console.log('Korisnik prijavljen:', userCredential.user.uid);
 
-          // Uspješna prijava usmjeri korisnika na Home page stranicu
+          // Uspješna prijava usmjeri korisnika na Home page stranicu u mojem slučaju HomeView
           this.$router.replace({ name: 'HomeView' });
         } else {
-          // Prijava nije uspjela
+          // Prijava nije uspjela obavijest 
           console.error('Greška pri prijavi: Neuspješna prijava');
         }
       })
       .catch((error) => {
         console.error('Greška pri prijavi:', error.message);
-        // Greška u prijavi
+        // Greška u prijavi pogrešan e-mail ili lozinka 
       });
   }
 }
@@ -73,7 +73,7 @@ export default {
   border: none !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  margin-top: 10px !important; /* Dodajte razmak iznad gumba */
+  margin-top: 10px !important; 
 }
 
 .custom-button:hover {

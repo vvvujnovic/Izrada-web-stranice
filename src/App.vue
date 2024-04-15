@@ -16,10 +16,10 @@ User
           <li v-if="!store.currentUser" class="nav-item">
             <router-link to="/SignUpForm" class="nav-link">Registracija</router-link>
           </li>
-          <li class="nav-item"> <!-- Promijenjeno: ova stavka se uvijek prikazuje -->
+          <li class="nav-item"> 
             <router-link to="/KategorijaUsluga" class="nav-link">Kategorija usluga</router-link>
           </li>
-          <li class="nav-item"> <!-- Poveznica za odjavu uvijek prikazana -->
+          <li class="nav-item"> 
             <a href="#" @click.prevent="logout()" class="nav-link">Odjava</a>
           </li>
         </ul>
@@ -34,10 +34,8 @@ User
   </div>
 </template>
 
-
-
-
 <script>
+
 import store from "@/store";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import router from "@/router";
@@ -96,7 +94,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss">
 #app {

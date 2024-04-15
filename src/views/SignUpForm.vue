@@ -8,8 +8,8 @@
       <form @submit.prevent="SignUpForm">
         <div class="form-group">
           <label for="username">Korisničko ime</label>
-           <input v-model="username" type="text" class="form-control" id="username" placeholder="Korisničko ime" />
-         </div>
+          <input v-model="username" type="text" class="form-control" id="username" placeholder="Korisničko ime" />
+        </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input v-model="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" />
@@ -21,6 +21,10 @@
         <div class="form-group">
           <label for="confirmPassword">Potvrdi lozinku</label>
           <input v-model="passwordRepeat" type="password" class="form-control" id="confirmPassword" placeholder="Potvrdi lozinku" />
+        </div>
+        <div class="login" style="margin-bottom: 20px;">
+          <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
+          <p v-if="showSuccessMessage" class="text-success">Registracija uspješna!</p>
         </div>
         <div class="login" style="margin-bottom: 20px;"></div>
         <button type="submit" class="btn custom-button">Registracija</button>
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+
 import { app } from '@/firebase'; 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -45,34 +50,48 @@ export default {
       username: "",
       email: "",
       password: "",
-      passwordRepeat: ""
+      passwordRepeat: "",
+      errorMessage: "",
+      showSuccessMessage: false //  znači da će inicijalno poruka o uspješnoj registraciji biti skrivena, jer će se samo prikazivati ako se postavi na true.
     };
   },
   methods: {
     SignUpForm() {
       if (!this.username || !this.email || !this.password || !this.passwordRepeat) {
-        console.error("Molimo ispunite sva polja");
+        this.errorMessage = "Molimo ispunite sva polja";
+        alert("Molimo ispunite sva polja");
         return;
       }
       if (this.password !== this.passwordRepeat) {
-        console.error("Lozinke se ne podudaraju");
+        this.errorMessage = "Lozinke se ne podudaraju";
+        alert("Lozinke se ne podudaraju");
         return;
       }
-          const auth = getAuth(app);
+      const auth = getAuth(app);
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
+          this.resetForm(); // Nakon uspješne registracije pozovite resetForm i očistite polja za registraciju
           console.log('Uspješna registracija', userCredential);
+          alert("Registracija uspješna!"); 
         })
         .catch((error) => {
+          this.errorMessage = "Došlo je do pogreške: " + error.message;
           console.error("Došlo je do pogreške", error);
+          alert("Došlo je do pogreške"); 
         });
+    },
+    resetForm() {
+      this.username = "";
+      this.email = "";
+      this.password = "";
+      this.passwordRepeat = "";
+      this.errorMessage = "";
+      this.showSuccessMessage = true;
+
     }
   }
 };
 </script>
-
-
-
 
 <style lang="scss">
 .custom-button {
